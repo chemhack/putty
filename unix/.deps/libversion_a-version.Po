@@ -1,0 +1,3 @@
+libversion_a-version.o libversion_a-version.o: ../version.c ../empty.h
+
+../empty.h:
