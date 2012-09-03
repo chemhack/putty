@@ -68,6 +68,24 @@ Filename *filename_deserialise(void *vdata, int maxsize, int *used)
     return filename_from_str(data);
 }
 
+#ifdef __MINGW32__
+#ifndef SecureZeroMemory
+/* A function that the compiler should never optimize-away */
+FORCEINLINE PVOID
+SecureZeroMemory(IN PVOID ptr, IN SIZE_T cnt)
+{
+    volatile char *vptr = (volatile char *)ptr;
+
+    while (cnt) {
+        *vptr = 0;
+        vptr++;
+        cnt--;
+    }
+    return ptr;
+}
+#endif
+#endif
+
 /*
  * Windows implementation of smemclr (see misc.c) using SecureZeroMemory.
  */
