@@ -478,6 +478,8 @@ const char *pfd_addforward(char *desthost, int destport, char *srcaddr,
 			     conf, address_family);
     if ((err = sk_socket_error(s)) != NULL) {
 	sfree(pr);
+	printf("error listening on port:%i\r\n",port);
+	cleanup_exit(13);
 	return err;
     }
 

@@ -8081,7 +8081,7 @@ static void do_ssh2_authconn(Ssh ssh, unsigned char *in, int inlen,
                      * attempting some kind of authentication, it's OK
                      * to print a followup message saying it failed -
                      * but the message may sometimes be more specific
-                     * than simply 'Access denied'.
+                     * than simply 'denied'.
                      *
 		     * Additionally, if we'd just tried password
 		     * authentication, we should break out of this
@@ -8089,6 +8089,9 @@ static void do_ssh2_authconn(Ssh ssh, unsigned char *in, int inlen,
 		     * prompt (iff we're configured to allow
 		     * username change attempts).
 		     */
+						 
+			/* Auth fail, exit code 11 */			 
+			ssh->exitcode=11;
 		    if (s->type == AUTH_TYPE_NONE) {
 			/* do nothing */
 		    } else if (s->type == AUTH_TYPE_PUBLICKEY_OFFER_LOUD ||
